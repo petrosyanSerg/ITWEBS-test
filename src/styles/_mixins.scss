@@ -1,0 +1,35 @@
+@mixin flex($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin main-container($width:100%) {
+  width: $width;
+  height: calc(100vh - 32px);
+  background-color: lightgray;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+@mixin hiddeScrollBar {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@mixin truncateWithLines($lines: 1) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin textOverflow($value: ellipsis) {
+  text-overflow: $value;
+  white-space: nowrap;
+  overflow: hidden;
+}

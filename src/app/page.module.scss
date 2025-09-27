@@ -1,0 +1,13 @@
+@use "src/styles/mixins" as *;
+.main {
+  display: flex;
+  width: 100%;
+  gap: 16px;
+  padding: 16px;
+  .aside {
+    overflow-y: auto;
+    overflow-x: hidden;
+    @include main-container();
+    @include hiddeScrollBar();
+  }
+}

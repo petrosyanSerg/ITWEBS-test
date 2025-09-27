@@ -1,0 +1,6 @@
+@use "src/styles/mixins" as *;
+
+.navbar {
+  min-width: 300px;
+  @include main-container(250px);
+}
