@@ -1,13 +1,11 @@
 import { Card, Title, Text, Group, Badge, Rating, Flex, Image } from '@mantine/core';
 
+import { getAvailabilityColor } from '@/shared/utils/productUtils';
+
 export function ProductCard({ product }) {
   const finalPrice = product.price * (1 - product.discountPercentage / 100);
 
-  const getAvailabilityColor = (status) => {
-    if (status === 'In Stock') return 'teal';
-    if (status === 'Low Stock') return 'orange';
-    return 'red';
-  };
+
 
   return (
     <Card

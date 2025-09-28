@@ -10,9 +10,9 @@ import { Fetch } from '@/shared/utils/Fetch';
 export function ProductFormModal({ оnProductCreated }) {
   const [opened, { open, close }] = useDisclosure(false);
 
-  const [productName, setProductName] = useState('');
-  const [productPrice, setProductPrice] = useState(100); // Добавим цену для валидности продукта
   const [file, setFile] = useState(null);
+  const [productName, setProductName] = useState('');
+  const [productPrice, setProductPrice] = useState(100);
 
   const [loading, setLoading] = useState(false);
 

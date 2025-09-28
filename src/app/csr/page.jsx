@@ -4,21 +4,24 @@ import { useState, useEffect } from 'react';
 import { Text, Container, Skeleton, Stack, Badge, Flex, SimpleGrid } from '@mantine/core';
 
 import { ProductCard } from '@/components/ui/ProductCard';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { useCustomSWR } from '@/shared/hooks/useCustomSWR';
 import { ProductFormModal } from '@/widgets/ProductFormModal';
+import { SectionHeading } from '@/components/ui/SectionHeading';
+import { WEBSOCKET_STATUSES } from '@/shared/constants/websocket';
+
+const { CONNECTED, DISCONNECTED, ERROR } = WEBSOCKET_STATUSES;
 
 export default function CSRPage() {
   const { data, error, isLoading, mutate } = useCustomSWR('products');
 
-  const [wsStatus, setWsStatus] = useState('Отключение');
+  const [wsStatus, setWsStatus] = useState(DISCONNECTED);
   const [wsMessage, setWsMessage] = useState('...');
 
   useEffect(() => {
     const socket = new WebSocket('wss://echo.websocket.org');
 
     socket.onopen = () => {
-      setWsStatus('Подключено');
+      setWsStatus(CONNECTED);
       socket.send('Hello from Next.js CSR page!');
     };
 
@@ -27,11 +30,11 @@ export default function CSRPage() {
     };
 
     socket.onclose = () => {
-      setWsStatus('Отключено');
+      setWsStatus(DISCONNECTED);
     };
 
     socket.onerror = (e) => {
-      setWsStatus('Ошибка');
+      setWsStatus(ERROR);
     };
 
     return () => {
@@ -81,12 +84,12 @@ export default function CSRPage() {
         subtitle="Страница полностью рендерится на клиенте, используя useSWR для асинхронной загрузки данных."
       />
       <Flex justify="space-between" align="center" mb="xl" wrap="wrap" gap="md">
-        <ProductFormModal оnProductCreated={mutate}  />
+        <ProductFormModal оnProductCreated={mutate} />
         <Stack gap={2}>
           <Text size="sm" weight={600} c="dimmed">
             WebSocket Статус:
           </Text>
-          <Badge color={wsStatus === 'Подключено' ? 'teal' : 'gray'} variant="filled">
+          <Badge color={wsStatus === CONNECTED ? 'teal' : 'gray'} variant="filled">
             {wsStatus}
           </Badge>
           <Text size="xs" c="gray">
